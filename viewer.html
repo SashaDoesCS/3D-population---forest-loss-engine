@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Global Forest Analyzer</title>
+  <script src="https://unpkg.com/deck.gl@latest/dist.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { 
+      width: 100%; height: 100%; background: #0a0a1a; overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #fff;
+    }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* LAYOUT                                                          */
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    
+    #app {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    #globe-section {
+      flex: 0 0 55%;
+      position: relative;
+      min-height: 400px;
+    }
+
+    #analysis-section {
+      flex: 1;
+      background: #0d0d20;
+      border-top: 2px solid #1e3a5f;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    #container { 
+      position: absolute; 
+      inset: 0; 
+    }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* CONTROLS PANEL (Top Left)                                       */
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+    #ui {
+      position: absolute; top: 12px; left: 12px;
+      background: rgba(10, 15, 30, 0.95); color: #fff;
+      padding: 16px 20px; border-radius: 12px; z-index: 10;
+      min-width: 280px; backdrop-filter: blur(10px);
+      border: 1px solid rgba(100, 150, 255, 0.2);
+    }
+
+    #ui h2 { 
+      margin: 0 0 16px 0; font-size: 18px; 
+      color: #4ade80; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .controls { display: flex; gap: 10px; margin-bottom: 14px; }
+    .controls select, .controls button {
+      flex: 1; padding: 8px 12px; border-radius: 8px;
+      border: 1px solid #2d4a6f; background: #0f1a2e; color: #fff;
+      font-size: 13px; cursor: pointer; transition: all 0.2s;
+    }
+    .controls select:hover, .controls button:hover {
+      border-color: #4a90d9; background: #152238;
+    }
+
+    .slider-group { margin-bottom: 12px; }
+    .slider-group label { 
+      display: flex; justify-content: space-between; 
+      font-size: 12px; color: #8899aa; margin-bottom: 6px;
+    }
+    .slider-group input[type="range"] { 
+      width: 100%; height: 6px; border-radius: 3px;
+      background: #1e3a5f; outline: none;
+      -webkit-appearance: none;
+    }
+    .slider-group input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 16px; height: 16px;
+      border-radius: 50%; background: #4ade80; cursor: pointer;
+    }
+
+    #stats {
+      padding-top: 12px; border-top: 1px solid #2d4a6f;
+      font-size: 12px; color: #8899aa;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+    }
+    #stats span { color: #fff; font-weight: 500; }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* LEGEND (Bottom Left of Globe)                                   */
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+    #legend {
+      position: absolute; bottom: 16px; left: 12px;
+      background: rgba(10, 15, 30, 0.95); padding: 12px 16px;
+      border-radius: 10px; z-index: 10; min-width: 180px;
+      border: 1px solid rgba(100, 150, 255, 0.2);
+    }
+    #legend h3 { margin: 0 0 8px; font-size: 11px; color: #8899aa; text-transform: uppercase; }
+    .gradient { height: 10px; border-radius: 4px; margin-bottom: 4px; }
+    .labels { display: flex; justify-content: space-between; font-size: 10px; color: #8899aa; }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* CLICK INFO (Bottom Right of Globe)                              */
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+    #click-info {
+      position: absolute; bottom: 16px; right: 12px;
+      background: rgba(10, 15, 30, 0.95); padding: 14px 18px;
+      border-radius: 10px; z-index: 10; min-width: 220px;
+      border: 1px solid rgba(100, 150, 255, 0.2);
+      display: none;
+    }
+    #click-info.active { display: block; }
+    #click-info h3 { 
+      margin: 0 0 10px; font-size: 13px; color: #4ade80;
+      display: flex; align-items: center; gap: 6px;
+    }
+    #click-info .coords {
+      font-family: 'Monaco', 'Consolas', monospace;
+      font-size: 14px; color: #fff; margin-bottom: 10px;
+    }
+    #click-info .hint { font-size: 11px; color: #6b7c8d; }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* TOOLTIP                                                         */
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+    #tooltip {
+      position: absolute; pointer-events: none; display: none;
+      background: rgba(10, 15, 30, 0.95); color: #fff; padding: 12px 16px;
+      border-radius: 8px; font-size: 12px; z-index: 1000;
+      border: 1px solid rgba(100, 150, 255, 0.3);
+    }
+    #tooltip div { margin: 3px 0; display: flex; justify-content: space-between; gap: 16px; }
+    #tooltip .label { color: #8899aa; }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* LOADING OVERLAY                                                 */
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+    #loading {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(5, 10, 20, 0.95);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1000;
+    }
+    #loading .content {
+      text-align: center; padding: 40px 60px;
+      background: rgba(15, 25, 45, 0.9); border-radius: 16px;
+      border: 1px solid rgba(100, 150, 255, 0.2);
+    }
+    #loading .spinner {
+      width: 50px; height: 50px; border: 3px solid #1e3a5f;
+      border-top-color: #4ade80; border-radius: 50%;
+      animation: spin 1s linear infinite; margin: 0 auto 20px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #loading .text { color: #fff; font-size: 16px; font-weight: 500; }
+    #loading .subtext { color: #6b7c8d; font-size: 13px; margin-top: 8px; }
+    .hidden { display: none !important; }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ANALYSIS SECTION                                                */
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+    #analysis-header {
+      display: flex; align-items: center; gap: 20px;
+      padding: 12px 20px;
+      background: #0a0f1f;
+      border-bottom: 1px solid #1e3a5f;
+      flex-wrap: wrap;
+    }
+
+    #analysis-header h3 {
+      font-size: 14px; color: #4ade80; margin: 0;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .analysis-controls {
+      display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+    }
+
+    .control-group {
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .control-group label {
+      font-size: 12px; color: #8899aa;
+    }
+
+    .control-group select, .control-group input {
+      padding: 6px 10px; border-radius: 6px;
+      border: 1px solid #2d4a6f; background: #0f1a2e; color: #fff;
+      font-size: 12px;
+    }
+
+    .btn {
+      padding: 8px 16px; border-radius: 6px; border: none;
+      font-size: 12px; font-weight: 500; cursor: pointer;
+      transition: all 0.2s; display: flex; align-items: center; gap: 6px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #fff;
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .btn-secondary {
+      background: #1e3a5f; color: #fff;
+    }
+    .btn-secondary:hover { background: #2d4a6f; }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* RESULTS GRID                                                    */
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+    #results-container {
+      flex: 1; padding: 16px 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 300px;
+      gap: 16px;
+      overflow: auto;
+    }
+
+    .result-card {
+      background: rgba(15, 25, 45, 0.6);
+      border: 1px solid #1e3a5f;
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .result-card h4 {
+      font-size: 12px; color: #8899aa; text-transform: uppercase;
+      margin: 0 0 12px 0; letter-spacing: 0.5px;
+    }
+
+    .result-card .chart-container {
+      flex: 1; min-height: 180px;
+      position: relative;
+    }
+
+    .result-card canvas {
+      max-height: 200px;
+    }
+
+    /* Metrics Card */
+    .metrics-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .metric {
+      background: rgba(30, 58, 95, 0.3);
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    .metric .label {
+      font-size: 11px; color: #6b7c8d;
+      text-transform: uppercase; margin-bottom: 4px;
+    }
+
+    .metric .value {
+      font-size: 20px; font-weight: 600; color: #fff;
+    }
+
+    .metric .value.success { color: #4ade80; }
+    .metric .value.warning { color: #fbbf24; }
+    .metric .value.info { color: #3b82f6; }
+
+    .metric .subtext {
+      font-size: 11px; color: #6b7c8d; margin-top: 4px;
+    }
+
+    /* Empty State */
+    #empty-state {
+      grid-column: 1 / -1;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 40px; text-align: center;
+      color: #6b7c8d;
+    }
+
+    #empty-state .icon { font-size: 48px; margin-bottom: 16px; opacity: 0.5; }
+    #empty-state h4 { font-size: 16px; color: #8899aa; margin-bottom: 8px; }
+    #empty-state p { font-size: 13px; max-width: 400px; line-height: 1.5; }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* RESPONSIVE                                                      */
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+    @media (max-width: 1200px) {
+      #results-container {
+        grid-template-columns: 1fr 1fr;
+      }
+      .result-card:last-child {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 800px) {
+      #results-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <!-- GLOBE SECTION                                                   -->
+    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <div id="globe-section">
+      <div id="container"></div>
+
+      <!-- Controls Panel -->
+      <div id="ui">
+        <h2>ðŸŒ² Global Forest Analyzer</h2>
+        <div class="controls">
+          <select id="year"></select>
+          <select id="mode">
+            <option value="canopy">Canopy</option>
+            <option value="population">Population</option>
+            <option value="loss">Forest Loss</option>
+          </select>
+        </div>
+        <div class="slider-group">
+          <label>Point Size <span id="sizeVal">1000m</span></label>
+          <input type="range" id="size" min="300" max="2500" value="1000">
+        </div>
+        <div id="stats">
+          <div>Points: <span id="sPoints">-</span></div>
+          <div>Population: <span id="sPop">-</span></div>
+          <div>Load time: <span id="sTime">-</span></div>
+          <div>File: <span id="sFile">-</span></div>
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div id="legend">
+        <h3 id="legendTitle">Canopy Cover</h3>
+        <div class="gradient" id="legendGrad"></div>
+        <div class="labels"><span id="legendMin">0%</span><span id="legendMax">100%</span></div>
+      </div>
+
+      <!-- Click Info -->
+      <div id="click-info">
+        <h3>ðŸ“ Selected Location</h3>
+        <div class="coords" id="clickCoords">-</div>
+        <div class="hint">Adjust radius below and click "Run Analysis"</div>
+      </div>
+
+      <!-- Tooltip -->
+      <div id="tooltip">
+        <div><span class="label">Canopy:</span><span id="ttCan">-</span></div>
+        <div><span class="label">Population:</span><span id="ttPop">-</span></div>
+        <div><span class="label">Loss:</span><span id="ttLoss">-</span></div>
+      </div>
+    </div>
+
+    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <!-- ANALYSIS SECTION                                                -->
+    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <div id="analysis-section">
+      <div id="analysis-header">
+        <h3>ðŸ“Š Spatial Analysis</h3>
+        
+        <div class="analysis-controls">
+          <div class="control-group">
+            <label>Mode:</label>
+            <select id="analysisMode">
+              <option value="point">Click Point</option>
+              <option value="region">Predefined Region</option>
+              <option value="hotspots">Find Hotspots</option>
+            </select>
+          </div>
+
+          <div class="control-group" id="radiusControl">
+            <label>Radius:</label>
+            <input type="range" id="analysisRadius" min="25" max="300" value="100" style="width: 100px;">
+            <span id="radiusValue">100 km</span>
+          </div>
+
+          <div class="control-group" id="regionControl" style="display: none;">
+            <label>Region:</label>
+            <select id="regionSelect">
+              <option value="">Select region...</option>
+            </select>
+          </div>
+
+          <div class="control-group" id="gridSizeControl" style="display: none;">
+            <label>Grid:</label>
+            <select id="gridSize">
+              <option value="10">10Â° (fast)</option>
+              <option value="5" selected>5Â° (balanced)</option>
+              <option value="2.5">2.5Â° (detailed)</option>
+            </select>
+          </div>
+
+          <button class="btn btn-primary" id="runAnalysis" disabled>
+            <span>ðŸ”¬</span> Run Analysis
+          </button>
+
+          <button class="btn btn-secondary" id="exportResults" disabled>
+            <span>ðŸ“¥</span> Export
+          </button>
+        </div>
+      </div>
+
+      <div id="results-container">
+        <!-- Empty State -->
+        <div id="empty-state">
+          <div class="icon">ðŸŒ</div>
+          <h4>Click on the globe to analyze a location</h4>
+          <p>Select a point on the map or choose a predefined region to analyze the relationship between population density and forest loss.</p>
+        </div>
+
+        <!-- Results (hidden initially) -->
+        <div class="result-card" id="decayCard" style="display: none;">
+          <h4>Distance-Decay Correlation</h4>
+          <div class="chart-container">
+            <canvas id="decayChart"></canvas>
+          </div>
+        </div>
+
+        <div class="result-card" id="polarCard" style="display: none;">
+          <h4>Directional Analysis</h4>
+          <div class="chart-container">
+            <canvas id="polarChart"></canvas>
+          </div>
+        </div>
+
+        <div class="result-card" id="metricsCard" style="display: none;">
+          <h4>Key Metrics</h4>
+          <div class="metrics-grid">
+            <div class="metric">
+              <div class="label">Half-Distance</div>
+              <div class="value info" id="metricHalfDist">-</div>
+              <div class="subtext">Distance where correlation drops to 50%</div>
+            </div>
+            <div class="metric">
+              <div class="label">Isotropy Test</div>
+              <div class="value" id="metricIsotropy">-</div>
+              <div class="subtext" id="metricIsotropySub">-</div>
+            </div>
+            <div class="metric">
+              <div class="label">Max Correlation</div>
+              <div class="value" id="metricMaxCorr">-</div>
+              <div class="subtext">Peak correlation value</div>
+            </div>
+            <div class="metric">
+              <div class="label">Data Points</div>
+              <div class="value" id="metricDataPoints">-</div>
+              <div class="subtext">Total bins analyzed</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotspots Results (hidden initially) -->
+        <div class="result-card" id="hotspotsCard" style="display: none; grid-column: 1 / -1;">
+          <h4>ðŸ”¥ Research Hotspots - Areas of Interest</h4>
+          <div class="hotspots-container" style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 300px;">
+              <h5 style="color: #4ade80; margin: 0 0 10px 0; font-size: 12px;">Positive Correlation (Pop â†‘ = Loss â†‘)</h5>
+              <div id="positiveHotspots" style="max-height: 200px; overflow-y: auto; font-size: 12px;"></div>
+            </div>
+            <div style="flex: 1; min-width: 300px;">
+              <h5 style="color: #f87171; margin: 0 0 10px 0; font-size: 12px;">Negative Correlation (Pop â†‘ = Loss â†“)</h5>
+              <div id="negativeHotspots" style="max-height: 200px; overflow-y: auto; font-size: 12px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loading">
+    <div class="content">
+      <div class="spinner"></div>
+      <div class="text" id="loadText">Loading visualization...</div>
+      <div class="subtext" id="loadSub">Please wait</div>
+    </div>
+  </div>
+
+<script>
+(async () => {
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // INITIALIZATION
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  
+  const { DeckGL, ScatterplotLayer, BitmapLayer, SolidPolygonLayer, PolygonLayer, COORDINATE_SYSTEM } = deck;
+  const GlobeView = deck._GlobeView;
+
+  const $ = id => document.getElementById(id);
+  
+  // State
+  let mode = 'canopy';
+  let size = 1000;
+  let opacity = 210;
+  let data = null;
+  let selectedPoint = null;
+  let analysisResults = null;
+  let decayChart = null;
+  let polarChart = null;
+  let regions = {};
+
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // COLOR SCHEMES
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+  const colors = {
+    canopy: {
+      title: 'Canopy Cover', min: '0%', max: '100%',
+      grad: 'linear-gradient(90deg, #1a0a00, #3d1a0a, #556b2f, #228b22, #32cd32)',
+      fn: (c) => {
+        const t = c / 100;
+        if (t < 0.3) return [80+t*150, 30+t*80, 10, opacity];
+        if (t < 0.6) return [125-(t-0.3)*150, 54+(t-0.3)*200, 20, opacity];
+        return [50-(t-0.6)*30, 114+(t-0.6)*141, 30, opacity];
+      }
+    },
+    population: {
+      title: 'Population Density', min: '0', max: '1000+/kmÂ²',
+      grad: 'linear-gradient(90deg, #0a0a20, #1e3a5f, #2563eb, #fbbf24, #ef4444)',
+      fn: (c, pLog) => {
+        if (pLog < 10) return [10, 20, 40, 80];
+        const t = pLog / 255;
+        if (t < 0.4) return [10, 30+t*200, 100+t*150, opacity];
+        if (t < 0.7) return [50+(t-0.4)*400, 180, 200-(t-0.4)*300, opacity];
+        return [255, 220-(t-0.7)*200, 30, opacity];
+      }
+    },
+    loss: {
+      title: 'Forest Loss', min: 'None', max: '2024',
+      grad: 'linear-gradient(90deg, #1a472a, #52b788, #f4a261, #e63946)',
+      fn: (c, pLog, loss) => {
+        if (loss === 0) return [30, 60+c*0.8, 45, 120];
+        const t = loss / 24;
+        return [180+t*75, 200-t*160, 100-t*90, opacity];
+      }
+    }
+  };
+
+  function updateLegend() {
+    const s = colors[mode];
+    $('legendTitle').textContent = s.title;
+    $('legendGrad').style.background = s.grad;
+    $('legendMin').textContent = s.min;
+    $('legendMax').textContent = s.max;
+  }
+
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // DECK.GL SETUP
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+  const deckgl = new DeckGL({
+    container: 'container',
+    views: [new GlobeView({ resolution: 10 })],
+    initialViewState: { longitude: 0, latitude: 20, zoom: 1.5 },
+    controller: { inertia: true },
+    parameters: { clearColor: [0.04, 0.04, 0.1, 1] },
+    
+    onClick: (info) => {
+      if (info.coordinate) {
+        selectedPoint = {
+          lat: info.coordinate[1],
+          lon: info.coordinate[0]
+        };
+        showClickInfo(selectedPoint);
+        $('runAnalysis').disabled = false;
+      }
+    },
+    
+    onHover: info => {
+      const tt = $('tooltip');
+      if (!info.picked || !data) { tt.style.display = 'none'; return; }
+      const i = info.index;
+      const density = data.popDensityLog[i] > 0 ? Math.pow(10, (data.popDensityLog[i]/255)*4 - 1) : 0;
+      $('ttCan').textContent = data.canopy[i] + '%';
+      $('ttPop').textContent = density.toFixed(1) + '/kmÂ²';
+      $('ttLoss').textContent = data.lossYear[i] > 0 ? (2000 + data.lossYear[i]) : 'None';
+      tt.style.display = 'block';
+      tt.style.left = (info.x + 12) + 'px';
+      tt.style.top = (info.y + 12) + 'px';
+    }
+  });
+
+  function showClickInfo(point) {
+    $('click-info').classList.add('active');
+    $('clickCoords').textContent = `${point.lat.toFixed(4)}Â°, ${point.lon.toFixed(4)}Â°`;
+  }
+
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // RENDERING
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+  function render() {
+    if (!data) return;
+    
+    const n = data.totalPoints;
+    const positions = new Float32Array(n * 3);
+    const clrs = new Uint8Array(n * 4);
+    const colorFn = colors[mode].fn;
+
+    for (let i = 0; i < n; i++) {
+      positions[i*3] = data.lons[i];
+      positions[i*3+1] = data.lats[i];
+      positions[i*3+2] = 0;
+      const c = colorFn(data.canopy[i], data.popDensityLog[i], data.lossYear[i]);
+      clrs[i*4] = c[0]; clrs[i*4+1] = c[1]; clrs[i*4+2] = c[2]; clrs[i*4+3] = c[3];
+    }
+
+    const layers = [
+      // Solid earth base (dark blue oceans)
+      new SolidPolygonLayer({
+        id: 'earth-base',
+        data: [{
+          polygon: [
+            [-180, -85],
+            [180, -85],
+            [180, 85],
+            [-180, 85]
+          ]
+        }],
+        getPolygon: d => d.polygon,
+        getFillColor: [15, 30, 60],  // Dark blue for oceans
+        coordinateSystem: COORDINATE_SYSTEM.LNGLAT
+      }),
+      // Earth texture overlay
+      new BitmapLayer({
+        id: 'earth',
+        bounds: [-180, -90, 180, 90],
+        image: 'https://eoimages.gsfc.nasa.gov/images/imagerecords/74000/74518/world.200411.3x1350x675.jpg',
+        coordinateSystem: COORDINATE_SYSTEM.LNGLAT
+      }),
+      new ScatterplotLayer({
+        id: 'points',
+        data: { length: n, attributes: {
+          getPosition: { value: positions, size: 3 },
+          getFillColor: { value: clrs, size: 4 }
+        }},
+        getRadius: size,
+        radiusMinPixels: 0.5,
+        radiusMaxPixels: 8,
+        coordinateSystem: COORDINATE_SYSTEM.LNGLAT,
+        pickable: true
+      })
+    ];
+
+    // Add selected point marker
+    if (selectedPoint) {
+      layers.push(new ScatterplotLayer({
+        id: 'selected-marker',
+        data: [selectedPoint],
+        getPosition: d => [d.lon, d.lat],
+        getFillColor: [255, 100, 100, 200],
+        getRadius: 50000,
+        radiusMinPixels: 8,
+        radiusMaxPixels: 20,
+        coordinateSystem: COORDINATE_SYSTEM.LNGLAT
+      }));
+    }
+
+    deckgl.setProps({ layers });
+  }
+
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // DATA LOADING
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+  async function loadYear(year) {
+    $('loading').classList.remove('hidden');
+    $('loadText').textContent = `Loading ${year}...`;
+    $('loadSub').textContent = 'Reading visualization data...';
+    
+    try {
+      data = await window.forestData.loadYear(year);
+      $('sPoints').textContent = data.totalPoints.toLocaleString() + (data.originalPoints && data.originalPoints !== data.totalPoints ? ` (of ${data.originalPoints.toLocaleString()})` : '');
+      $('sPop').textContent = (data.totalPopulation/1e9).toFixed(2) + 'B';
+      $('sTime').textContent = data.loadTime.toFixed(1) + 's';
+      render();
+    } catch (e) {
+      $('loadText').textContent = 'Error: ' + e.message;
+      console.error(e);
+      return;
+    }
+    
+    $('loading').classList.add('hidden');
+  }
+
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // ANALYSIS
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+  async function runAnalysis() {
+    const analysisMode = $('analysisMode').value;
+    const year = parseInt($('year').value);
+    
+    $('runAnalysis').disabled = true;
+    $('runAnalysis').innerHTML = '<span>â³</span> Analyzing...';
+    $('loading').classList.remove('hidden');
+    $('loadText').textContent = analysisMode === 'hotspots' ? 'Scanning for hotspots...' : 'Running analysis...';
+    $('loadSub').textContent = analysisMode === 'hotspots' ? 'This may take several minutes' : 'This may take a moment';
+    
+    try {
+      let results;
+      
+      if (analysisMode === 'point' && selectedPoint) {
+        const radius = parseInt($('analysisRadius').value);
+        results = await window.forestData.runPointAnalysis({
+          lat: selectedPoint.lat,
+          lon: selectedPoint.lon,
+          radiusKm: radius,
+          year: year
+        });
+        analysisResults = results;
+        displayResults(results);
+        
+      } else if (analysisMode === 'region') {
+        const regionId = $('regionSelect').value;
+        if (!regionId) {
+          throw new Error('Please select a region');
+        }
+        results = await window.forestData.runRegionAnalysis({
+          regionId: regionId,
+          year: year
+        });
+        analysisResults = results;
+        displayResults(results);
+        
+      } else if (analysisMode === 'hotspots') {
+        const gridSize = parseFloat($('gridSize').value);
+        results = await window.forestData.runHotspotScan({
+          year: year,
+          gridSize: gridSize
+        });
+        analysisResults = results;
+        displayHotspots(results);
+      }
+      
+      $('exportResults').disabled = false;
+      
+    } catch (e) {
+      console.error('Analysis failed:', e);
+      alert('Analysis failed: ' + e.message);
+    } finally {
+      $('loading').classList.add('hidden');
+      $('runAnalysis').disabled = false;
+      const analysisMode = $('analysisMode').value;
+      if (analysisMode === 'hotspots') {
+        $('runAnalysis').innerHTML = '<span>ðŸ”</span> Find Hotspots';
+      } else {
+        $('runAnalysis').innerHTML = '<span>ðŸ”¬</span> Run Analysis';
+      }
+    }
+  }
+
+  function displayHotspots(results) {
+    // Hide standard results, show hotspots
+    $('empty-state').style.display = 'none';
+    $('decayCard').style.display = 'none';
+    $('polarCard').style.display = 'none';
+    $('metricsCard').style.display = 'none';
+    $('hotspotsCard').style.display = 'flex';
+    
+    const positiveDiv = $('positiveHotspots');
+    const negativeDiv = $('negativeHotspots');
+    
+    // Clear previous results
+    positiveDiv.innerHTML = '';
+    negativeDiv.innerHTML = '';
+    
+    if (!results.hotspots || results.hotspots.length === 0) {
+      positiveDiv.innerHTML = '<div style="color: #6b7c8d; padding: 10px;">No hotspots found</div>';
+      negativeDiv.innerHTML = '<div style="color: #6b7c8d; padding: 10px;">No hotspots found</div>';
+      return;
+    }
+    
+    // Separate into positive and negative
+    const positive = results.hotspots.filter(h => h.correlation > 0).slice(0, 15);
+    const negative = results.hotspots.filter(h => h.correlation < 0).slice(0, 15);
+    
+    // Create clickable hotspot items
+    const createHotspotItem = (hotspot, index) => {
+      const div = document.createElement('div');
+      div.style.cssText = 'padding: 8px; margin: 4px 0; background: rgba(30,58,95,0.3); border-radius: 6px; cursor: pointer; transition: background 0.2s;';
+      div.onmouseover = () => div.style.background = 'rgba(30,58,95,0.6)';
+      div.onmouseout = () => div.style.background = 'rgba(30,58,95,0.3)';
+      
+      const corrColor = hotspot.correlation > 0 ? '#4ade80' : '#f87171';
+      div.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="color: #fff;">${index + 1}. (${hotspot.center_lat.toFixed(1)}Â°, ${hotspot.center_lon.toFixed(1)}Â°)</span>
+          <span style="color: ${corrColor}; font-weight: 600;">r=${hotspot.correlation.toFixed(3)}</span>
+        </div>
+        <div style="color: #8899aa; font-size: 11px; margin-top: 4px;">
+          ${hotspot.n_points.toLocaleString()} points | ${hotspot.loss_rate.toFixed(1)}% loss
+        </div>
+      `;
+      
+      // Click to zoom to location
+      div.onclick = () => {
+        selectedPoint = { lat: hotspot.center_lat, lon: hotspot.center_lon };
+        showClickInfo(selectedPoint);
+        deckgl.setProps({
+          initialViewState: {
+            longitude: hotspot.center_lon,
+            latitude: hotspot.center_lat,
+            zoom: 4,
+            transitionDuration: 1000
+          }
+        });
+        render();
+      };
+      
+      return div;
+    };
+    
+    positive.forEach((h, i) => positiveDiv.appendChild(createHotspotItem(h, i)));
+    negative.forEach((h, i) => negativeDiv.appendChild(createHotspotItem(h, i)));
+    
+    if (positive.length === 0) {
+      positiveDiv.innerHTML = '<div style="color: #6b7c8d; padding: 10px;">No positive correlations found</div>';
+    }
+    if (negative.length === 0) {
+      negativeDiv.innerHTML = '<div style="color: #6b7c8d; padding: 10px;">No negative correlations found</div>';
+    }
+  }
+
+  function displayResults(results) {
+    // Hide empty state and hotspots, show results
+    $('empty-state').style.display = 'none';
+    $('hotspotsCard').style.display = 'none';
+    $('decayCard').style.display = 'flex';
+    $('polarCard').style.display = 'flex';
+    $('metricsCard').style.display = 'flex';
+    
+    // Update metrics
+    if (results.half_distance_km) {
+      $('metricHalfDist').textContent = results.half_distance_km.toFixed(1) + ' km';
+    } else {
+      $('metricHalfDist').textContent = 'N/A';
+    }
+    
+    if (results.directional && results.directional.isotropy_test) {
+      const iso = results.directional.isotropy_test;
+      $('metricIsotropy').textContent = iso.is_isotropic ? 'âœ“ Isotropic' : 'âœ— Anisotropic';
+      $('metricIsotropy').className = 'value ' + (iso.is_isotropic ? 'success' : 'warning');
+      $('metricIsotropySub').textContent = `p = ${iso.levene_p?.toFixed(4) || 'N/A'}`;
+    } else {
+      $('metricIsotropy').textContent = 'N/A';
+      $('metricIsotropy').className = 'value';
+      $('metricIsotropySub').textContent = 'Not computed';
+    }
+    
+    if (results.distance_decay && results.distance_decay.half_distance) {
+      $('metricMaxCorr').textContent = results.distance_decay.half_distance.max_correlation?.toFixed(3) || 'N/A';
+    } else {
+      $('metricMaxCorr').textContent = 'N/A';
+    }
+    
+    $('metricDataPoints').textContent = results.metadata?.n_data_points?.toLocaleString() || 'N/A';
+    
+    // Render charts
+    renderDecayChart(results);
+    renderPolarChart(results);
+  }
+
+  function renderDecayChart(results) {
+    const ctx = $('decayChart').getContext('2d');
+    
+    if (decayChart) decayChart.destroy();
+    
+    if (!results.distance_decay || !results.distance_decay.band_correlations) {
+      return;
+    }
+    
+    const bands = Object.keys(results.distance_decay.band_correlations)
+      .map(Number)
+      .sort((a, b) => a - b);
+    
+    const data = {
+      labels: bands.map(b => (b / 1000).toFixed(0)),
+      datasets: [{
+        label: 'Correlation',
+        data: bands.map(b => results.distance_decay.band_correlations[b].mean),
+        borderColor: '#4ade80',
+        backgroundColor: 'rgba(74, 222, 128, 0.1)',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 5,
+        pointBackgroundColor: '#4ade80'
+      }]
+    };
+    
+    decayChart = new Chart(ctx, {
+      type: 'line',
+      data: data,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => `r = ${ctx.parsed.y.toFixed(3)}`
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: { display: true, text: 'Distance (km)', color: '#8899aa' },
+            ticks: { color: '#8899aa' },
+            grid: { color: 'rgba(100, 150, 200, 0.1)' }
+          },
+          y: {
+            title: { display: true, text: 'Correlation', color: '#8899aa' },
+            ticks: { color: '#8899aa' },
+            grid: { color: 'rgba(100, 150, 200, 0.1)' }
+          }
+        }
+      }
+    });
+  }
+
+  function renderPolarChart(results) {
+    const ctx = $('polarChart').getContext('2d');
+    
+    if (polarChart) polarChart.destroy();
+    
+    if (!results.directional || !results.directional.directional) {
+      return;
+    }
+    
+    const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+    const dirData = results.directional.directional;
+    
+    // Find band with most data
+    let bestBand = null;
+    let maxCount = 0;
+    
+    for (const dir of directions) {
+      if (dirData[dir]) {
+        for (const [band, data] of Object.entries(dirData[dir])) {
+          if (data.count > maxCount) {
+            maxCount = data.count;
+            bestBand = band;
+          }
+        }
+      }
+    }
+    
+    if (!bestBand) return;
+    
+    const values = directions.map(d => {
+      if (dirData[d] && dirData[d][bestBand]) {
+        return Math.max(0, dirData[d][bestBand].mean || 0);
+      }
+      return 0;
+    });
+    
+    polarChart = new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: directions,
+        datasets: [{
+          label: `Correlation at ${(bestBand / 1000).toFixed(0)}km`,
+          data: values,
+          backgroundColor: 'rgba(74, 222, 128, 0.2)',
+          borderColor: '#4ade80',
+          pointBackgroundColor: '#4ade80',
+          pointBorderColor: '#fff',
+          pointRadius: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: true, labels: { color: '#8899aa' } }
+        },
+        scales: {
+          r: {
+            beginAtZero: true,
+            ticks: { color: '#8899aa', backdropColor: 'transparent' },
+            grid: { color: 'rgba(100, 150, 200, 0.2)' },
+            pointLabels: { color: '#fff', font: { size: 12 } }
+          }
+        }
+      }
+    });
+  }
+
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // EVENT HANDLERS
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+  $('year').onchange = () => {
+    const y = parseInt($('year').value);
+    loadYear(y);
+  };
+
+  $('mode').onchange = () => {
+    mode = $('mode').value;
+    updateLegend();
+    render();
+  };
+
+  $('size').oninput = () => {
+    size = parseInt($('size').value);
+    $('sizeVal').textContent = size + 'm';
+    render();
+  };
+
+  $('analysisMode').onchange = () => {
+    const analysisMode = $('analysisMode').value;
+    const isRegion = analysisMode === 'region';
+    const isHotspots = analysisMode === 'hotspots';
+    const isPoint = analysisMode === 'point';
+    
+    $('radiusControl').style.display = isPoint ? 'flex' : 'none';
+    $('regionControl').style.display = isRegion ? 'flex' : 'none';
+    $('gridSizeControl').style.display = isHotspots ? 'flex' : 'none';
+    $('click-info').classList.toggle('active', isPoint && selectedPoint);
+    
+    if (isHotspots) {
+      $('runAnalysis').disabled = false;
+      $('runAnalysis').innerHTML = '<span>ðŸ”</span> Find Hotspots';
+    } else if (isRegion) {
+      $('runAnalysis').disabled = !$('regionSelect').value;
+      $('runAnalysis').innerHTML = '<span>ðŸ”¬</span> Run Analysis';
+    } else {
+      $('runAnalysis').disabled = !selectedPoint;
+      $('runAnalysis').innerHTML = '<span>ðŸ”¬</span> Run Analysis';
+    }
+  };
+
+  $('analysisRadius').oninput = () => {
+    $('radiusValue').textContent = $('analysisRadius').value + ' km';
+  };
+
+  $('regionSelect').onchange = () => {
+    $('runAnalysis').disabled = !$('regionSelect').value;
+  };
+
+  $('runAnalysis').onclick = runAnalysis;
+
+  $('exportResults').onclick = () => {
+    if (!analysisResults) return;
+    const blob = new Blob([JSON.stringify(analysisResults, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `analysis_${Date.now()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // INITIALIZATION
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+  async function init() {
+    // Load regions
+    try {
+      regions = await window.forestData.getRegions();
+      const select = $('regionSelect');
+      for (const [id, region] of Object.entries(regions)) {
+        const opt = document.createElement('option');
+        opt.value = id;
+        opt.textContent = region.name;
+        select.appendChild(opt);
+      }
+    } catch (e) {
+      console.warn('Could not load regions:', e);
+    }
+
+    // Load years
+    const years = await window.forestData.getYears();
+    if (years.length === 0) {
+      $('loadText').textContent = 'No visualization data found';
+      $('loadSub').textContent = 'Place land_YYYY.bin files in deckgl_data/';
+      return;
+    }
+
+    years.forEach(y => {
+      const opt = document.createElement('option');
+      opt.value = y.year;
+      opt.textContent = `${y.year} (${(y.size/1024/1024).toFixed(0)} MB)`;
+      $('year').appendChild(opt);
+    });
+    
+    $('year').value = years[years.length - 1].year;
+    $('sFile').textContent = (years[years.length - 1].size / 1024 / 1024).toFixed(0) + ' MB';
+
+    updateLegend();
+    await loadYear(years[years.length - 1].year);
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>
