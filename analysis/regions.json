@@ -1,0 +1,152 @@
+{
+  "amazon_west": {
+    "name": "Western Amazon Basin",
+    "bounds": { "minLat": -15, "maxLat": 5, "minLon": -80, "maxLon": -60 },
+    "biome": "tropical_moist",
+    "countries": ["Peru", "Ecuador", "Colombia", "Brazil"],
+    "description": "Andean foothills and western lowland Amazon",
+    "forestType": "Terra firme and varzea forests",
+    "keyDrivers": ["Agriculture", "Mining", "Roads"],
+    "color": "#22c55e"
+  },
+  "amazon_east": {
+    "name": "Eastern Amazon & Arc of Deforestation",
+    "bounds": { "minLat": -15, "maxLat": 0, "minLon": -60, "maxLon": -45 },
+    "biome": "tropical_moist",
+    "countries": ["Brazil"],
+    "description": "Brazilian Amazon deforestation frontier",
+    "forestType": "Transitional and cerrado-adjacent",
+    "keyDrivers": ["Cattle ranching", "Soy expansion", "Logging"],
+    "color": "#16a34a"
+  },
+  "congo_basin": {
+    "name": "Congo Basin",
+    "bounds": { "minLat": -10, "maxLat": 8, "minLon": 10, "maxLon": 32 },
+    "biome": "tropical_moist",
+    "countries": ["DRC", "Republic of Congo", "Gabon", "Cameroon", "CAR"],
+    "description": "World's second-largest rainforest",
+    "forestType": "Lowland tropical rainforest",
+    "keyDrivers": ["Smallholder agriculture", "Logging", "Charcoal"],
+    "color": "#15803d"
+  },
+  "insular_se_asia": {
+    "name": "Insular Southeast Asia",
+    "bounds": { "minLat": -10, "maxLat": 8, "minLon": 95, "maxLon": 142 },
+    "biome": "tropical_moist",
+    "countries": ["Indonesia", "Malaysia", "Philippines", "Papua New Guinea"],
+    "description": "Indonesian archipelago and Borneo",
+    "forestType": "Peat swamp and dipterocarp",
+    "keyDrivers": ["Palm oil", "Pulpwood", "Mining"],
+    "color": "#84cc16"
+  },
+  "mainland_se_asia": {
+    "name": "Mainland Southeast Asia",
+    "bounds": { "minLat": 8, "maxLat": 25, "minLon": 95, "maxLon": 110 },
+    "biome": "tropical_moist",
+    "countries": ["Myanmar", "Thailand", "Laos", "Vietnam", "Cambodia"],
+    "description": "Mekong region forests",
+    "forestType": "Tropical monsoon and evergreen",
+    "keyDrivers": ["Plantation expansion", "Hydropower", "Agriculture"],
+    "color": "#a3e635"
+  },
+  "pacific_northwest": {
+    "name": "Pacific Northwest",
+    "bounds": { "minLat": 40, "maxLat": 55, "minLon": -128, "maxLon": -115 },
+    "biome": "temperate_rainforest",
+    "countries": ["USA", "Canada"],
+    "description": "Coastal temperate rainforest",
+    "forestType": "Old-growth conifer",
+    "keyDrivers": ["Logging", "Development", "Fire"],
+    "color": "#0ea5e9"
+  },
+  "european_boreal": {
+    "name": "Scandinavian Boreal",
+    "bounds": { "minLat": 55, "maxLat": 70, "minLon": 5, "maxLon": 35 },
+    "biome": "boreal",
+    "countries": ["Sweden", "Finland", "Norway"],
+    "description": "Northern European managed forests",
+    "forestType": "Boreal conifer",
+    "keyDrivers": ["Commercial forestry", "Climate change"],
+    "color": "#06b6d4"
+  },
+  "russian_taiga": {
+    "name": "Russian Taiga (West)",
+    "bounds": { "minLat": 55, "maxLat": 68, "minLon": 35, "maxLon": 90 },
+    "biome": "boreal",
+    "countries": ["Russia"],
+    "description": "World's largest forest zone (western portion)",
+    "forestType": "Boreal taiga",
+    "keyDrivers": ["Logging", "Fire", "Insect outbreaks"],
+    "color": "#14b8a6"
+  },
+  "eastern_us": {
+    "name": "Eastern US Deciduous",
+    "bounds": { "minLat": 30, "maxLat": 45, "minLon": -90, "maxLon": -70 },
+    "biome": "temperate_deciduous",
+    "countries": ["USA"],
+    "description": "Appalachian and eastern hardwood forests",
+    "forestType": "Temperate broadleaf",
+    "keyDrivers": ["Urban expansion", "Fragmentation"],
+    "color": "#3b82f6"
+  },
+  "cerrado": {
+    "name": "Brazilian Cerrado",
+    "bounds": { "minLat": -25, "maxLat": -5, "minLon": -60, "maxLon": -40 },
+    "biome": "tropical_dry",
+    "countries": ["Brazil"],
+    "description": "World's most biodiverse savanna",
+    "forestType": "Tropical woodland/savanna",
+    "keyDrivers": ["Soy", "Cattle", "Sugarcane"],
+    "color": "#eab308"
+  },
+  "chaco": {
+    "name": "Gran Chaco",
+    "bounds": { "minLat": -28, "maxLat": -18, "minLon": -65, "maxLon": -55 },
+    "biome": "tropical_dry",
+    "countries": ["Argentina", "Paraguay", "Bolivia"],
+    "description": "Fastest deforestation rate globally",
+    "forestType": "Dry forest and thorn scrub",
+    "keyDrivers": ["Cattle", "Soy", "Charcoal"],
+    "color": "#f59e0b"
+  },
+  "miombo": {
+    "name": "Miombo Woodlands",
+    "bounds": { "minLat": -20, "maxLat": -5, "minLon": 20, "maxLon": 38 },
+    "biome": "tropical_dry",
+    "countries": ["Tanzania", "Zambia", "Mozambique", "Zimbabwe"],
+    "description": "Africa's largest woodland ecosystem",
+    "forestType": "Miombo dry woodland",
+    "keyDrivers": ["Charcoal", "Agriculture", "Fire"],
+    "color": "#d97706"
+  },
+  "australia_east": {
+    "name": "Eastern Australia",
+    "bounds": { "minLat": -40, "maxLat": -20, "minLon": 140, "maxLon": 155 },
+    "biome": "temperate_mixed",
+    "countries": ["Australia"],
+    "description": "Post-2019 fire recovery region",
+    "forestType": "Eucalyptus and temperate rainforest",
+    "keyDrivers": ["Fire", "Logging", "Climate change"],
+    "color": "#8b5cf6"
+  },
+  "central_africa_rainforest": {
+    "name": "Central African Rainforest",
+    "bounds": { "minLat": -5, "maxLat": 5, "minLon": 15, "maxLon": 30 },
+    "biome": "tropical_moist",
+    "countries": ["DRC", "Republic of Congo"],
+    "description": "Core Congo rainforest",
+    "forestType": "Lowland tropical evergreen",
+    "keyDrivers": ["Artisanal logging", "Shifting cultivation"],
+    "color": "#10b981"
+  },
+  "west_africa": {
+    "name": "West African Forest Belt",
+    "bounds": { "minLat": 4, "maxLat": 12, "minLon": -15, "maxLon": 10 },
+    "biome": "tropical_moist",
+    "countries": ["Liberia", "Sierra Leone", "Cote d'Ivoire", "Ghana", "Nigeria"],
+    "description": "Guinean forests hotspot",
+    "forestType": "Upper Guinean rainforest",
+    "keyDrivers": ["Cocoa", "Mining", "Agriculture"],
+    "color": "#059669"
+  }
+}
