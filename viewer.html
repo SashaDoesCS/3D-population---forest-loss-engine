@@ -13,9 +13,9 @@
       color: #fff;
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ═══════════════════════════════════════════════════════════════ */
     /* LAYOUT                                                          */
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ═══════════════════════════════════════════════════════════════ */
     
     #app {
       display: flex;
@@ -43,9 +43,9 @@
       inset: 0; 
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ═══════════════════════════════════════════════════════════════ */
     /* CONTROLS PANEL (Top Left)                                       */
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ═══════════════════════════════════════════════════════════════ */
 
     #ui {
       position: absolute; top: 12px; left: 12px;
@@ -93,9 +93,9 @@
     }
     #stats span { color: #fff; font-weight: 500; }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ═══════════════════════════════════════════════════════════════ */
     /* LEGEND (Bottom Left of Globe)                                   */
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ═══════════════════════════════════════════════════════════════ */
 
     #legend {
       position: absolute; bottom: 16px; left: 12px;
@@ -107,9 +107,9 @@
     .gradient { height: 10px; border-radius: 4px; margin-bottom: 4px; }
     .labels { display: flex; justify-content: space-between; font-size: 10px; color: #8899aa; }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ═══════════════════════════════════════════════════════════════ */
     /* CLICK INFO (Bottom Right of Globe)                              */
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ═══════════════════════════════════════════════════════════════ */
 
     #click-info {
       position: absolute; bottom: 16px; right: 12px;
@@ -127,11 +127,17 @@
       font-family: 'Monaco', 'Consolas', monospace;
       font-size: 14px; color: #fff; margin-bottom: 10px;
     }
-    #click-info .hint { font-size: 11px; color: #6b7c8d; }
+    #click-info .hint { font-size: 11px; color: #6b7c8d; margin-bottom: 10px; }
+    #click-info .btn-reset {
+      padding: 6px 12px; border-radius: 6px; border: none;
+      background: #ef4444; color: #fff; font-size: 11px;
+      cursor: pointer; width: 100%;
+    }
+    #click-info .btn-reset:hover { background: #dc2626; }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ═══════════════════════════════════════════════════════════════ */
     /* TOOLTIP                                                         */
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ═══════════════════════════════════════════════════════════════ */
 
     #tooltip {
       position: absolute; pointer-events: none; display: none;
@@ -142,9 +148,9 @@
     #tooltip div { margin: 3px 0; display: flex; justify-content: space-between; gap: 16px; }
     #tooltip .label { color: #8899aa; }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ═══════════════════════════════════════════════════════════════ */
     /* LOADING OVERLAY                                                 */
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ═══════════════════════════════════════════════════════════════ */
 
     #loading {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -167,9 +173,9 @@
     #loading .subtext { color: #6b7c8d; font-size: 13px; margin-top: 8px; }
     .hidden { display: none !important; }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ═══════════════════════════════════════════════════════════════ */
     /* ANALYSIS SECTION                                                */
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ═══════════════════════════════════════════════════════════════ */
 
     #analysis-header {
       display: flex; align-items: center; gap: 20px;
@@ -220,9 +226,14 @@
     }
     .btn-secondary:hover { background: #2d4a6f; }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    .btn-export {
+      background: #7c3aed; color: #fff;
+    }
+    .btn-export:hover { background: #6d28d9; }
+
+    /* ═══════════════════════════════════════════════════════════════ */
     /* RESULTS GRID                                                    */
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ═══════════════════════════════════════════════════════════════ */
 
     #results-container {
       flex: 1; padding: 16px 20px;
@@ -244,6 +255,7 @@
     .result-card h4 {
       font-size: 12px; color: #8899aa; text-transform: uppercase;
       margin: 0 0 12px 0; letter-spacing: 0.5px;
+      display: flex; justify-content: space-between; align-items: center;
     }
 
     .result-card .chart-container {
@@ -254,6 +266,13 @@
     .result-card canvas {
       max-height: 200px;
     }
+
+    .export-btn-small {
+      padding: 4px 8px; border-radius: 4px; border: none;
+      background: #6366f1; color: #fff; font-size: 10px;
+      cursor: pointer; opacity: 0.8;
+    }
+    .export-btn-small:hover { opacity: 1; }
 
     /* Metrics Card */
     .metrics-grid {
@@ -298,9 +317,30 @@
     #empty-state h4 { font-size: 16px; color: #8899aa; margin-bottom: 8px; }
     #empty-state p { font-size: 13px; max-width: 400px; line-height: 1.5; }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* Strata Table */
+    .strata-table {
+      width: 100%; font-size: 11px;
+      border-collapse: collapse;
+    }
+    .strata-table th, .strata-table td {
+      padding: 6px 8px; text-align: left;
+      border-bottom: 1px solid #1e3a5f;
+    }
+    .strata-table th { color: #8899aa; font-weight: 500; }
+    .strata-table td { color: #fff; }
+
+    /* Model Info */
+    .model-info {
+      font-size: 11px; padding: 8px;
+      background: rgba(30, 58, 95, 0.2);
+      border-radius: 6px; margin-top: 8px;
+    }
+    .model-info .model-name { color: #4ade80; font-weight: 600; }
+    .model-info .formula { color: #8899aa; font-family: monospace; }
+
+    /* ═══════════════════════════════════════════════════════════════ */
     /* RESPONSIVE                                                      */
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ═══════════════════════════════════════════════════════════════ */
 
     @media (max-width: 1200px) {
       #results-container {
@@ -320,15 +360,15 @@
 </head>
 <body>
   <div id="app">
-    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
     <!-- GLOBE SECTION                                                   -->
-    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
     <div id="globe-section">
       <div id="container"></div>
 
       <!-- Controls Panel -->
       <div id="ui">
-        <h2>ðŸŒ² Global Forest Analyzer</h2>
+        <h2>🌲 Global Forest Analyzer</h2>
         <div class="controls">
           <select id="year"></select>
           <select id="mode">
@@ -358,9 +398,10 @@
 
       <!-- Click Info -->
       <div id="click-info">
-        <h3>ðŸ“ Selected Location</h3>
+        <h3>📍 Selected Location</h3>
         <div class="coords" id="clickCoords">-</div>
         <div class="hint">Adjust radius below and click "Run Analysis"</div>
+        <button class="btn-reset" id="resetSelection">🗑️ Clear Selection</button>
       </div>
 
       <!-- Tooltip -->
@@ -371,12 +412,12 @@
       </div>
     </div>
 
-    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
     <!-- ANALYSIS SECTION                                                -->
-    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
     <div id="analysis-section">
       <div id="analysis-header">
-        <h3>ðŸ“Š Spatial Analysis</h3>
+        <h3>📊 Spatial Analysis</h3>
         
         <div class="analysis-controls">
           <div class="control-group">
@@ -404,18 +445,22 @@
           <div class="control-group" id="gridSizeControl" style="display: none;">
             <label>Grid:</label>
             <select id="gridSize">
-              <option value="10">10Â° (fast)</option>
-              <option value="5" selected>5Â° (balanced)</option>
-              <option value="2.5">2.5Â° (detailed)</option>
+              <option value="10">10° (fast)</option>
+              <option value="5" selected>5° (balanced)</option>
+              <option value="2.5">2.5° (detailed)</option>
             </select>
           </div>
 
           <button class="btn btn-primary" id="runAnalysis" disabled>
-            <span>ðŸ”¬</span> Run Analysis
+            <span>🔬</span> Run Analysis
           </button>
 
           <button class="btn btn-secondary" id="exportResults" disabled>
-            <span>ðŸ“¥</span> Export
+            <span>📥</span> Export JSON
+          </button>
+
+          <button class="btn btn-export" id="exportAllCharts" disabled>
+            <span>📸</span> Export All Charts
           </button>
         </div>
       </div>
@@ -423,21 +468,27 @@
       <div id="results-container">
         <!-- Empty State -->
         <div id="empty-state">
-          <div class="icon">ðŸŒ</div>
+          <div class="icon">🌍</div>
           <h4>Click on the globe to analyze a location</h4>
           <p>Select a point on the map or choose a predefined region to analyze the relationship between population density and forest loss.</p>
         </div>
 
         <!-- Results (hidden initially) -->
         <div class="result-card" id="decayCard" style="display: none;">
-          <h4>Distance-Decay Correlation</h4>
+          <h4>
+            Distance-Decay Correlation
+            <button class="export-btn-small" onclick="exportChart('decayChart', 'distance_decay')">📸 PNG</button>
+          </h4>
           <div class="chart-container">
             <canvas id="decayChart"></canvas>
           </div>
         </div>
 
         <div class="result-card" id="polarCard" style="display: none;">
-          <h4>Directional Analysis</h4>
+          <h4>
+            Directional Analysis
+            <button class="export-btn-small" onclick="exportChart('polarChart', 'directional')">📸 PNG</button>
+          </h4>
           <div class="chart-container">
             <canvas id="polarChart"></canvas>
           </div>
@@ -469,16 +520,42 @@
           </div>
         </div>
 
+        <!-- Strata Results Card -->
+        <div class="result-card" id="strataCard" style="display: none; grid-column: 1 / -1;">
+          <h4>
+            Stratified Analysis (Population Deciles)
+            <button class="export-btn-small" onclick="exportChart('strataChart', 'strata')">📸 PNG</button>
+          </h4>
+          <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+            <div class="chart-container" style="flex: 1; min-width: 300px;">
+              <canvas id="strataChart"></canvas>
+            </div>
+            <div id="strataTable" style="flex: 1; min-width: 300px; max-width: 450px;"></div>
+          </div>
+        </div>
+
+        <!-- Non-Linear Models Card -->
+        <div class="result-card" id="nonlinearCard" style="display: none;">
+          <h4>
+            Non-Linear Model Fit
+            <button class="export-btn-small" onclick="exportChart('nonlinearChart', 'nonlinear')">📸 PNG</button>
+          </h4>
+          <div class="chart-container">
+            <canvas id="nonlinearChart"></canvas>
+          </div>
+          <div id="modelInfo" class="model-info"></div>
+        </div>
+
         <!-- Hotspots Results (hidden initially) -->
         <div class="result-card" id="hotspotsCard" style="display: none; grid-column: 1 / -1;">
-          <h4>ðŸ”¥ Research Hotspots - Areas of Interest</h4>
+          <h4>🔥 Research Hotspots - Areas of Interest</h4>
           <div class="hotspots-container" style="display: flex; gap: 20px; flex-wrap: wrap;">
             <div style="flex: 1; min-width: 300px;">
-              <h5 style="color: #4ade80; margin: 0 0 10px 0; font-size: 12px;">Positive Correlation (Pop â†‘ = Loss â†‘)</h5>
+              <h5 style="color: #4ade80; margin: 0 0 10px 0; font-size: 12px;">Positive Correlation (Pop ↑ = Loss ↑)</h5>
               <div id="positiveHotspots" style="max-height: 200px; overflow-y: auto; font-size: 12px;"></div>
             </div>
             <div style="flex: 1; min-width: 300px;">
-              <h5 style="color: #f87171; margin: 0 0 10px 0; font-size: 12px;">Negative Correlation (Pop â†‘ = Loss â†“)</h5>
+              <h5 style="color: #f87171; margin: 0 0 10px 0; font-size: 12px;">Negative Correlation (Pop ↑ = Loss ↓)</h5>
               <div id="negativeHotspots" style="max-height: 200px; overflow-y: auto; font-size: 12px;"></div>
             </div>
           </div>
@@ -498,9 +575,9 @@
 
 <script>
 (async () => {
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // ═══════════════════════════════════════════════════════════════
   // INITIALIZATION
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // ═══════════════════════════════════════════════════════════════
   
   const { DeckGL, ScatterplotLayer, BitmapLayer, SolidPolygonLayer, PolygonLayer, COORDINATE_SYSTEM } = deck;
   const GlobeView = deck._GlobeView;
@@ -516,11 +593,61 @@
   let analysisResults = null;
   let decayChart = null;
   let polarChart = null;
+  let strataChart = null;
+  let nonlinearChart = null;
   let regions = {};
 
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // ═══════════════════════════════════════════════════════════════
+  // ALASKA BUG FILTER
+  // Removes phantom data points in the region north of Alaska
+  // that appear in visualization but don't exist in analysis data
+  // ═══════════════════════════════════════════════════════════════
+  
+  function filterAlaskaBug(lats, lons, ...otherArrays) {
+    /**
+     * Filter out points in the phantom tile region north of Alaska.
+     * This region shows visual artifacts from the EPSG:6933 projection
+     * but contains no real analysis data.
+     * 
+     * Bounds: roughly 70-80°N, 150-170°W
+     */
+    const validIndices = [];
+    
+    for (let i = 0; i < lats.length; i++) {
+      const lat = lats[i];
+      const lon = lons[i];
+      
+      // Check if point is in the phantom Alaska region
+      const inAlaskaBugRegion = (
+        lat > 70 && lat < 82 &&
+        lon > -170 && lon < -145
+      );
+      
+      if (!inAlaskaBugRegion) {
+        validIndices.push(i);
+      }
+    }
+    
+    // Filter all arrays
+    const filteredLats = validIndices.map(i => lats[i]);
+    const filteredLons = validIndices.map(i => lons[i]);
+    const filteredOthers = otherArrays.map(arr => 
+      Array.isArray(arr) ? validIndices.map(i => arr[i]) : arr
+    );
+    
+    const filtered = validIndices.length;
+    const removed = lats.length - filtered;
+    
+    if (removed > 0) {
+      console.log(`[Filter] Removed ${removed.toLocaleString()} phantom Alaska points`);
+    }
+    
+    return [filteredLats, filteredLons, ...filteredOthers, filtered];
+  }
+
+  // ═══════════════════════════════════════════════════════════════
   // COLOR SCHEMES
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // ═══════════════════════════════════════════════════════════════
 
   const colors = {
     canopy: {
@@ -534,7 +661,7 @@
       }
     },
     population: {
-      title: 'Population Density', min: '0', max: '1000+/kmÂ²',
+      title: 'Population Density', min: '0', max: '1000+/km²',
       grad: 'linear-gradient(90deg, #0a0a20, #1e3a5f, #2563eb, #fbbf24, #ef4444)',
       fn: (c, pLog) => {
         if (pLog < 10) return [10, 20, 40, 80];
@@ -563,9 +690,61 @@
     $('legendMax').textContent = s.max;
   }
 
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // ═══════════════════════════════════════════════════════════════
+  // CHART EXPORT FUNCTIONS
+  // ═══════════════════════════════════════════════════════════════
+  
+  window.exportChart = function(chartId, filename) {
+    const canvas = $(chartId);
+    if (!canvas) {
+      alert('Chart not found');
+      return;
+    }
+    
+    // Create download link
+    const link = document.createElement('a');
+    link.download = `${filename}_${new Date().toISOString().slice(0,10)}.png`;
+    link.href = canvas.toDataURL('image/png', 1.0);
+    link.click();
+  };
+  
+  function exportAllCharts() {
+    const charts = [
+      { id: 'decayChart', name: 'distance_decay' },
+      { id: 'polarChart', name: 'directional_analysis' },
+      { id: 'strataChart', name: 'strata_analysis' },
+      { id: 'nonlinearChart', name: 'nonlinear_fit' }
+    ];
+    
+    const timestamp = new Date().toISOString().slice(0,10);
+    
+    charts.forEach(({ id, name }) => {
+      const canvas = $(id);
+      if (canvas && canvas.style.display !== 'none') {
+        setTimeout(() => {
+          const link = document.createElement('a');
+          link.download = `${name}_${timestamp}.png`;
+          link.href = canvas.toDataURL('image/png', 1.0);
+          link.click();
+        }, 100);
+      }
+    });
+    
+    // Also export JSON
+    if (analysisResults) {
+      const blob = new Blob([JSON.stringify(analysisResults, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `analysis_results_${timestamp}.json`;
+      setTimeout(() => a.click(), 500);
+      URL.revokeObjectURL(url);
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════
   // DECK.GL SETUP
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // ═══════════════════════════════════════════════════════════════
 
   const deckgl = new DeckGL({
     container: 'container',
@@ -582,6 +761,7 @@
         };
         showClickInfo(selectedPoint);
         $('runAnalysis').disabled = false;
+        render(); // Re-render to show marker
       }
     },
     
@@ -589,9 +769,10 @@
       const tt = $('tooltip');
       if (!info.picked || !data) { tt.style.display = 'none'; return; }
       const i = info.index;
+      if (i >= data.totalPoints) { tt.style.display = 'none'; return; }
       const density = data.popDensityLog[i] > 0 ? Math.pow(10, (data.popDensityLog[i]/255)*4 - 1) : 0;
       $('ttCan').textContent = data.canopy[i] + '%';
-      $('ttPop').textContent = density.toFixed(1) + '/kmÂ²';
+      $('ttPop').textContent = density.toFixed(1) + '/km²';
       $('ttLoss').textContent = data.lossYear[i] > 0 ? (2000 + data.lossYear[i]) : 'None';
       tt.style.display = 'block';
       tt.style.left = (info.x + 12) + 'px';
@@ -601,12 +782,19 @@
 
   function showClickInfo(point) {
     $('click-info').classList.add('active');
-    $('clickCoords').textContent = `${point.lat.toFixed(4)}Â°, ${point.lon.toFixed(4)}Â°`;
+    $('clickCoords').textContent = `${point.lat.toFixed(4)}°, ${point.lon.toFixed(4)}°`;
+  }
+  
+  function clearSelection() {
+    selectedPoint = null;
+    $('click-info').classList.remove('active');
+    $('runAnalysis').disabled = true;
+    render();
   }
 
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // ═══════════════════════════════════════════════════════════════
   // RENDERING
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // ═══════════════════════════════════════════════════════════════
 
   function render() {
     if (!data) return;
@@ -668,6 +856,9 @@
         data: [selectedPoint],
         getPosition: d => [d.lon, d.lat],
         getFillColor: [255, 100, 100, 200],
+        getLineColor: [255, 255, 255, 255],
+        lineWidthMinPixels: 2,
+        stroked: true,
         getRadius: 50000,
         radiusMinPixels: 8,
         radiusMaxPixels: 20,
@@ -678,9 +869,9 @@
     deckgl.setProps({ layers });
   }
 
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // ═══════════════════════════════════════════════════════════════
   // DATA LOADING
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // ═══════════════════════════════════════════════════════════════
 
   async function loadYear(year) {
     $('loading').classList.remove('hidden');
@@ -688,8 +879,34 @@
     $('loadSub').textContent = 'Reading visualization data...';
     
     try {
-      data = await window.forestData.loadYear(year);
-      $('sPoints').textContent = data.totalPoints.toLocaleString() + (data.originalPoints && data.originalPoints !== data.totalPoints ? ` (of ${data.originalPoints.toLocaleString()})` : '');
+      const rawData = await window.forestData.loadYear(year);
+      
+      // Apply Alaska bug filter
+      const [
+        filteredLats, filteredLons, filteredCanopy, filteredPopDensityLog,
+        filteredLossYear, filteredPopCount, filteredLossFrac, filteredCount
+      ] = filterAlaskaBug(
+        rawData.lats, rawData.lons, 
+        rawData.canopy, rawData.popDensityLog, 
+        rawData.lossYear, rawData.popCount, rawData.lossFrac
+      );
+      
+      data = {
+        totalPoints: filteredCount,
+        originalPoints: rawData.originalPoints || rawData.totalPoints,
+        totalPopulation: rawData.totalPopulation,
+        loadTime: rawData.loadTime,
+        lats: filteredLats,
+        lons: filteredLons,
+        canopy: filteredCanopy,
+        popDensityLog: filteredPopDensityLog,
+        lossYear: filteredLossYear,
+        popCount: filteredPopCount,
+        lossFrac: filteredLossFrac
+      };
+      
+      $('sPoints').textContent = data.totalPoints.toLocaleString() + 
+        (data.originalPoints !== data.totalPoints ? ` (of ${data.originalPoints.toLocaleString()})` : '');
       $('sPop').textContent = (data.totalPopulation/1e9).toFixed(2) + 'B';
       $('sTime').textContent = data.loadTime.toFixed(1) + 's';
       render();
@@ -702,16 +919,16 @@
     $('loading').classList.add('hidden');
   }
 
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // ═══════════════════════════════════════════════════════════════
   // ANALYSIS
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // ═══════════════════════════════════════════════════════════════
 
   async function runAnalysis() {
     const analysisMode = $('analysisMode').value;
     const year = parseInt($('year').value);
     
     $('runAnalysis').disabled = true;
-    $('runAnalysis').innerHTML = '<span>â³</span> Analyzing...';
+    $('runAnalysis').innerHTML = '<span>⏳</span> Analyzing...';
     $('loading').classList.remove('hidden');
     $('loadText').textContent = analysisMode === 'hotspots' ? 'Scanning for hotspots...' : 'Running analysis...';
     $('loadSub').textContent = analysisMode === 'hotspots' ? 'This may take several minutes' : 'This may take a moment';
@@ -753,6 +970,7 @@
       }
       
       $('exportResults').disabled = false;
+      $('exportAllCharts').disabled = false;
       
     } catch (e) {
       console.error('Analysis failed:', e);
@@ -762,9 +980,9 @@
       $('runAnalysis').disabled = false;
       const analysisMode = $('analysisMode').value;
       if (analysisMode === 'hotspots') {
-        $('runAnalysis').innerHTML = '<span>ðŸ”</span> Find Hotspots';
+        $('runAnalysis').innerHTML = '<span>🔍</span> Find Hotspots';
       } else {
-        $('runAnalysis').innerHTML = '<span>ðŸ”¬</span> Run Analysis';
+        $('runAnalysis').innerHTML = '<span>🔬</span> Run Analysis';
       }
     }
   }
@@ -775,6 +993,8 @@
     $('decayCard').style.display = 'none';
     $('polarCard').style.display = 'none';
     $('metricsCard').style.display = 'none';
+    $('strataCard').style.display = 'none';
+    $('nonlinearCard').style.display = 'none';
     $('hotspotsCard').style.display = 'flex';
     
     const positiveDiv = $('positiveHotspots');
@@ -804,7 +1024,7 @@
       const corrColor = hotspot.correlation > 0 ? '#4ade80' : '#f87171';
       div.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center;">
-          <span style="color: #fff;">${index + 1}. (${hotspot.center_lat.toFixed(1)}Â°, ${hotspot.center_lon.toFixed(1)}Â°)</span>
+          <span style="color: #fff;">${index + 1}. (${hotspot.center_lat.toFixed(1)}°, ${hotspot.center_lon.toFixed(1)}°)</span>
           <span style="color: ${corrColor}; font-weight: 600;">r=${hotspot.correlation.toFixed(3)}</span>
         </div>
         <div style="color: #8899aa; font-size: 11px; margin-top: 4px;">
@@ -858,7 +1078,7 @@
     
     if (results.directional && results.directional.isotropy_test) {
       const iso = results.directional.isotropy_test;
-      $('metricIsotropy').textContent = iso.is_isotropic ? 'âœ“ Isotropic' : 'âœ— Anisotropic';
+      $('metricIsotropy').textContent = iso.is_isotropic ? '✓ Isotropic' : '✗ Anisotropic';
       $('metricIsotropy').className = 'value ' + (iso.is_isotropic ? 'success' : 'warning');
       $('metricIsotropySub').textContent = `p = ${iso.levene_p?.toFixed(4) || 'N/A'}`;
     } else {
@@ -878,6 +1098,8 @@
     // Render charts
     renderDecayChart(results);
     renderPolarChart(results);
+    renderStrataChart(results);
+    renderNonlinearChart(results);
   }
 
   function renderDecayChart(results) {
@@ -1005,9 +1227,387 @@
     });
   }
 
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  function renderStrataChart(results) {
+    const ctx = $('strataChart').getContext('2d');
+    
+    if (strataChart) strataChart.destroy();
+    
+    // Show/hide strata card based on data availability
+    if (!results.stratified || !results.stratified.strata || Object.keys(results.stratified.strata).length === 0) {
+      $('strataCard').style.display = 'none';
+      return;
+    }
+    
+    $('strataCard').style.display = 'flex';
+    
+    const strata = results.stratified.strata;
+    const strataNames = Object.keys(strata).sort((a, b) => {
+      // Sort D1, D2, ... D10 or Q1, Q2, ... Q4 properly
+      const numA = parseInt(a.replace(/\D/g, ''));
+      const numB = parseInt(b.replace(/\D/g, ''));
+      return numA - numB;
+    });
+    
+    const halfDistances = strataNames.map(s => strata[s].half_distance_km || 0);
+    const popMedians = strataNames.map(s => strata[s].pop_median || 0);
+    const lossRates = strataNames.map(s => strata[s].loss_rate_pct || 0);
+    
+    // Determine if we have deciles (10) or quartiles (4)
+    const isDeciles = strataNames.length > 5;
+    
+    // Bar chart showing half-distance by stratum
+    strataChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: strataNames.map(s => {
+          const pop = strata[s].pop_median;
+          // For 10 deciles, use shorter labels
+          if (isDeciles) {
+            return s;
+          }
+          return `${s}\n(${pop?.toFixed(1) || '?'}/km²)`;
+        }),
+        datasets: [{
+          label: 'Half-Distance (km)',
+          data: halfDistances,
+          backgroundColor: strataNames.map((_, i) => 
+            `hsl(${120 + i * (isDeciles ? 12 : 30)}, 65%, 45%)`
+          ),
+          borderColor: 'rgba(255,255,255,0.3)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: `Half-Distance by Population ${isDeciles ? 'Decile' : 'Quartile'}`,
+            color: '#8899aa',
+            font: { size: 11 }
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: '#8899aa', font: { size: isDeciles ? 9 : 10 } },
+            grid: { display: false }
+          },
+          y: {
+            title: { display: true, text: 'Half-Distance (km)', color: '#8899aa' },
+            ticks: { color: '#8899aa' },
+            grid: { color: 'rgba(100, 150, 200, 0.1)' }
+          }
+        }
+      }
+    });
+    
+    // Build strata table (compact for 10 deciles)
+    let tableHtml = '';
+    
+    // ===== DIRECT CORRELATION (Individual Level) =====
+    if (results.stratified.direct_correlation) {
+      const dc = results.stratified.direct_correlation;
+      if (dc.pearson_r !== undefined) {
+        const sigColor = dc.significant_pearson ? '#4ade80' : '#fbbf24';
+        const sigIcon = dc.significant_pearson ? '✓' : '○';
+        tableHtml += `
+          <div style="padding: 10px; background: linear-gradient(135deg, rgba(30,58,95,0.5), rgba(50,78,115,0.3)); border-radius: 6px; margin-bottom: 10px; border-left: 3px solid ${sigColor};">
+            <div style="font-size: 12px; font-weight: 600; color: #4ade80; margin-bottom: 6px;">
+              📊 Direct Correlation (Individual Level)
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11px;">
+              <div>
+                <span style="color: #8899aa;">Pearson r:</span> 
+                <strong style="color: ${sigColor};">${dc.pearson_r.toFixed(4)}</strong>
+                <span style="color: #6b7c8d;">(p=${dc.pearson_p?.toExponential(2) || 'N/A'})</span>
+              </div>
+              <div>
+                <span style="color: #8899aa;">Effect:</span> 
+                <strong style="color: #fff;">${dc.effect_size || 'Unknown'}</strong>
+              </div>
+            </div>
+            <div style="font-size: 10px; color: #8899aa; margin-top: 6px;">
+              ${sigIcon} ${dc.interpretation || ''}
+            </div>
+            <div style="font-size: 10px; color: #6b7c8d; margin-top: 4px;">
+              n = ${dc.n_observations?.toLocaleString() || '?'} data points (high statistical power)
+            </div>
+          </div>
+        `;
+      }
+    }
+    
+    // ===== STRATA COMPARISON (Aggregated) =====
+    tableHtml += `
+      <div style="font-size: 11px; color: #8899aa; margin-bottom: 6px; font-weight: 600;">
+        📈 ${isDeciles ? 'Decile' : 'Quartile'} Analysis
+      </div>
+    `;
+    
+    // Compact table for deciles
+    if (isDeciles) {
+      tableHtml += `
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; font-size: 10px;">
+      `;
+      for (let i = 0; i < strataNames.length; i++) {
+        const name = strataNames[i];
+        const s = strata[name];
+        const hd = s.half_distance_km ? s.half_distance_km.toFixed(0) : '-';
+        const lr = s.loss_rate_pct ? s.loss_rate_pct.toFixed(1) : '-';
+        tableHtml += `
+          <div style="background: rgba(30,58,95,0.3); padding: 4px; border-radius: 4px; text-align: center;">
+            <div style="color: #fff; font-weight: 500;">${name}</div>
+            <div style="color: #4ade80;">${hd} km</div>
+            <div style="color: #fbbf24;">${lr}%</div>
+          </div>
+        `;
+      }
+      tableHtml += `</div>
+        <div style="font-size: 9px; color: #6b7c8d; margin-top: 4px;">
+          Top: Half-distance | Bottom: Loss rate %
+        </div>
+      `;
+    } else {
+      // Full table for quartiles
+      tableHtml += `
+        <table class="strata-table">
+          <tr>
+            <th>Stratum</th>
+            <th>Pop Range</th>
+            <th>Half-Dist</th>
+            <th>Loss %</th>
+            <th>Bins</th>
+          </tr>
+      `;
+      
+      for (const name of strataNames) {
+        const s = strata[name];
+        tableHtml += `
+          <tr>
+            <td>${name}</td>
+            <td>${s.pop_range ? s.pop_range[0].toFixed(1) + '-' + s.pop_range[1].toFixed(1) : 'N/A'}</td>
+            <td>${s.half_distance_km ? s.half_distance_km.toFixed(1) + ' km' : 'N/A'}</td>
+            <td>${s.loss_rate_pct ? s.loss_rate_pct.toFixed(1) + '%' : 'N/A'}</td>
+            <td>${s.n_bins?.toLocaleString() || 'N/A'}</td>
+          </tr>
+        `;
+      }
+      
+      tableHtml += '</table>';
+    }
+    
+    // Add comparison info if available
+    if (results.stratified.comparison) {
+      const comp = results.stratified.comparison;
+      
+      // LOSS RATE CORRELATION - Show first as PRIMARY finding (more reliable!)
+      if (comp.loss_rate_correlation !== undefined && comp.loss_rate_correlation !== null) {
+        const lrSigColor = comp.loss_rate_significant ? '#4ade80' : '#fbbf24';
+        const lrEffectColor = comp.loss_rate_effect_size === 'Large' ? '#4ade80' : 
+                            comp.loss_rate_effect_size === 'Medium' ? '#fbbf24' : '#8899aa';
+        tableHtml += `
+          <div style="margin-top: 10px; padding: 10px; background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); border-radius: 6px;">
+            <div style="font-size: 11px; color: #4ade80; font-weight: 600; margin-bottom: 6px;">
+              📊 Primary Finding: Loss Rate vs Population
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px;">
+              <div>
+                <strong>Spearman ρ:</strong> 
+                <span style="color: ${lrSigColor}; font-size: 14px; font-weight: 600;">${comp.loss_rate_correlation.toFixed(3)}</span>
+                <span style="color: #6b7c8d;">(p=${comp.loss_rate_p?.toExponential(2) || 'N/A'})</span>
+              </div>
+              <div style="color: ${lrEffectColor}; font-weight: 500;">
+                ${comp.loss_rate_effect_size || 'Unknown'} effect
+              </div>
+            </div>
+            <div style="color: ${comp.loss_rate_significant ? '#4ade80' : '#8899aa'}; margin-top: 4px; font-size: 11px;">
+              ${comp.loss_rate_significant ? '✓ Statistically significant (n=' + (comp.loss_rate_n || comp.total_strata || '?') + ' strata)' : '○ Not statistically significant'}
+            </div>
+            <div style="color: #8899aa; margin-top: 4px; font-size: 10px;">
+              ${comp.loss_rate_significant ? 'Higher population = higher forest loss rate' : 'No clear trend in loss rates across population deciles'}
+            </div>
+          </div>
+        `;
+      }
+      
+      // HALF-DISTANCE CORRELATION - Secondary finding (often unreliable)
+      if (comp.spearman_correlation !== undefined && comp.spearman_correlation !== null) {
+        const sigColor = comp.significant ? '#4ade80' : '#fbbf24';
+        const effectColor = comp.effect_size === 'Large' ? '#4ade80' : 
+                          comp.effect_size === 'Medium' ? '#fbbf24' : '#8899aa';
+        tableHtml += `
+          <div style="margin-top: 8px; padding: 8px; background: rgba(30,58,95,0.3); border-radius: 4px; font-size: 11px;">
+            <div style="font-size: 10px; color: #6b7c8d; margin-bottom: 4px;">
+              📏 Secondary: Half-Distance vs Population (n=${comp.strata_analyzed || '?'}/${comp.total_strata || '?'} strata with valid half-distance)
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <strong>Spearman ρ:</strong> 
+                <span style="color: ${sigColor};">${comp.spearman_correlation.toFixed(3)}</span>
+                <span style="color: #6b7c8d;">(p=${comp.spearman_p?.toFixed(4) || 'N/A'})</span>
+              </div>
+              <div style="color: ${effectColor}; font-weight: 500;">
+                ${comp.effect_size || 'Unknown'} effect
+              </div>
+            </div>
+            <div style="color: ${comp.significant ? '#4ade80' : '#8899aa'}; margin-top: 4px;">
+              ${comp.significant ? '✓ Statistically significant' : '○ Not statistically significant'}
+            </div>
+            ${comp.strata_analyzed < 6 ? `<div style="color: #f59e0b; margin-top: 4px; font-size: 10px;">⚠ Low sample size - interpret with caution</div>` : ''}
+            ${comp.power_note ? `<div style="color: #6b7c8d; margin-top: 4px; font-size: 9px;">${comp.power_note}</div>` : ''}
+          </div>
+        `;
+      } else if (comp.note) {
+        tableHtml += `<div style="margin-top: 8px; font-size: 11px; color: #8899aa;">${comp.note}</div>`;
+        
+        // Even with the note, still show loss rate if available!
+        if (comp.loss_rate_correlation !== undefined && comp.loss_rate_correlation !== null && !tableHtml.includes('Primary Finding')) {
+          const lrSigColor = comp.loss_rate_significant ? '#4ade80' : '#fbbf24';
+          tableHtml += `
+            <div style="margin-top: 10px; padding: 10px; background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); border-radius: 6px;">
+              <div style="font-size: 11px; color: #4ade80; font-weight: 600; margin-bottom: 6px;">
+                📊 Primary Finding: Loss Rate vs Population
+              </div>
+              <div style="font-size: 12px;">
+                <strong>Spearman ρ:</strong> 
+                <span style="color: ${lrSigColor}; font-size: 14px; font-weight: 600;">${comp.loss_rate_correlation.toFixed(3)}</span>
+                <span style="color: #6b7c8d;">(p=${comp.loss_rate_p?.toExponential(2) || 'N/A'})</span>
+                ${comp.loss_rate_significant ? ' ✓' : ''}
+              </div>
+            </div>
+          `;
+        }
+      }
+    }
+    
+    $('strataTable').innerHTML = tableHtml;
+  }
+
+  function renderNonlinearChart(results) {
+    const ctx = $('nonlinearChart').getContext('2d');
+    
+    if (nonlinearChart) nonlinearChart.destroy();
+    
+    // Show/hide nonlinear card based on data availability
+    if (!results.nonlinear_models || !results.nonlinear_models.binned_data) {
+      $('nonlinearCard').style.display = 'none';
+      return;
+    }
+    
+    $('nonlinearCard').style.display = 'flex';
+    
+    const binned = results.nonlinear_models.binned_data;
+    const models = results.nonlinear_models.models || {};
+    const bestModel = results.nonlinear_models.best_model;
+    
+    // Create datasets
+    const datasets = [{
+      label: 'Observed Data',
+      data: binned.pop.map((p, i) => ({ x: p, y: binned.loss[i] })),
+      backgroundColor: '#4ade80',
+      pointRadius: 6,
+      showLine: false
+    }];
+    
+    // Add model fit lines
+    const modelColors = {
+      power_law: '#f59e0b',
+      exponential: '#ef4444',
+      logarithmic: '#3b82f6'
+    };
+    
+    // Generate fitted curves
+    const minPop = Math.min(...binned.pop);
+    const maxPop = Math.max(...binned.pop);
+    const fitX = [];
+    for (let i = 0; i <= 50; i++) {
+      fitX.push(minPop + (maxPop - minPop) * i / 50);
+    }
+    
+    for (const [modelName, modelInfo] of Object.entries(models)) {
+      if (modelInfo.error || !modelInfo.params) continue;
+      
+      const [a, b] = modelInfo.params;
+      let fitY;
+      
+      if (modelName === 'power_law') {
+        fitY = fitX.map(x => a * Math.pow(x + 1e-10, b));
+      } else if (modelName === 'exponential') {
+        fitY = fitX.map(x => a * Math.exp(b * x));
+      } else if (modelName === 'logarithmic') {
+        fitY = fitX.map(x => a + b * Math.log(x + 1));
+      }
+      
+      if (fitY) {
+        datasets.push({
+          label: `${modelName} (R²=${modelInfo.r_squared?.toFixed(3) || 'N/A'})`,
+          data: fitX.map((x, i) => ({ x: x, y: fitY[i] })),
+          borderColor: modelColors[modelName] || '#888',
+          backgroundColor: 'transparent',
+          pointRadius: 0,
+          borderWidth: 2,
+          showLine: true,
+          fill: false
+        });
+      }
+    }
+    
+    nonlinearChart = new Chart(ctx, {
+      type: 'scatter',
+      data: { datasets },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { 
+            display: true, 
+            labels: { color: '#8899aa', font: { size: 10 } },
+            position: 'bottom'
+          },
+          title: {
+            display: true,
+            text: 'Population vs Loss Rate (Non-Linear Fit)',
+            color: '#8899aa',
+            font: { size: 11 }
+          }
+        },
+        scales: {
+          x: {
+            type: 'linear',
+            title: { display: true, text: 'Population Density', color: '#8899aa' },
+            ticks: { color: '#8899aa' },
+            grid: { color: 'rgba(100, 150, 200, 0.1)' }
+          },
+          y: {
+            title: { display: true, text: 'Loss Rate', color: '#8899aa' },
+            ticks: { color: '#8899aa' },
+            grid: { color: 'rgba(100, 150, 200, 0.1)' }
+          }
+        }
+      }
+    });
+    
+    // Update model info
+    let modelInfoHtml = '';
+    if (bestModel) {
+      const best = models[bestModel.name];
+      modelInfoHtml = `
+        <div><span class="model-name">Best Model:</span> ${bestModel.name}</div>
+        <div>R² = ${bestModel.r_squared?.toFixed(4) || 'N/A'}</div>
+        <div class="formula">${best?.formula || ''}</div>
+        <div>Parameters: a=${best?.params?.[0]?.toFixed(4) || '?'}, b=${best?.params?.[1]?.toFixed(4) || '?'}</div>
+      `;
+    } else {
+      modelInfoHtml = '<div style="color: #8899aa;">No model could be fitted</div>';
+    }
+    $('modelInfo').innerHTML = modelInfoHtml;
+  }
+
+  // ═══════════════════════════════════════════════════════════════
   // EVENT HANDLERS
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // ═══════════════════════════════════════════════════════════════
 
   $('year').onchange = () => {
     const y = parseInt($('year').value);
@@ -1025,6 +1625,8 @@
     $('sizeVal').textContent = size + 'm';
     render();
   };
+  
+  $('resetSelection').onclick = clearSelection;
 
   $('analysisMode').onchange = () => {
     const analysisMode = $('analysisMode').value;
@@ -1039,13 +1641,13 @@
     
     if (isHotspots) {
       $('runAnalysis').disabled = false;
-      $('runAnalysis').innerHTML = '<span>ðŸ”</span> Find Hotspots';
+      $('runAnalysis').innerHTML = '<span>🔍</span> Find Hotspots';
     } else if (isRegion) {
       $('runAnalysis').disabled = !$('regionSelect').value;
-      $('runAnalysis').innerHTML = '<span>ðŸ”¬</span> Run Analysis';
+      $('runAnalysis').innerHTML = '<span>🔬</span> Run Analysis';
     } else {
       $('runAnalysis').disabled = !selectedPoint;
-      $('runAnalysis').innerHTML = '<span>ðŸ”¬</span> Run Analysis';
+      $('runAnalysis').innerHTML = '<span>🔬</span> Run Analysis';
     }
   };
 
@@ -1069,10 +1671,12 @@
     a.click();
     URL.revokeObjectURL(url);
   };
+  
+  $('exportAllCharts').onclick = exportAllCharts;
 
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // ═══════════════════════════════════════════════════════════════
   // INITIALIZATION
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // ═══════════════════════════════════════════════════════════════
 
   async function init() {
     // Load regions
